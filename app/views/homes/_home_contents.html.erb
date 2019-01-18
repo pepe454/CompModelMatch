@@ -1,0 +1,35 @@
+<% if SiteAnnouncement.headline_announcement -%>
+    <%= alert_box('warning') do %>
+        <%= site_annoucements_headline %>
+    <% end %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-9">
+    <%= render :partial=>"home_description_box" -%>
+
+    <% if Seek::Config.front_page_buttons_enabled %>
+        <%= render :partial=>"home_buttons" -%>
+    <% end %>
+
+    <% if logged_in_and_registered? %>
+        <%= render :partial=>"user_activity" -%>
+    <% else %>
+        <%= render :partial=>"home_activity_notifications" -%>
+    <% end %>
+  </div>
+
+  <div class="col-md-3">
+    <%= render :partial=>"gadgets/announcements_gadget" if show_announcements? %>
+
+    <%= render :partial=>"home_news_feeds" -%>
+
+    <% if Seek::Config.tagging_enabled %>
+        <div id="sidebar_tag_cloud">
+          <% cache 'sidebar_tag_cloud', skip_digest: true do -%>
+              <%= render :partial=>"gadgets/tag_cloud_gadget" %>
+          <% end -%>
+        </div>
+    <% end %>
+  </div>
+</div>
