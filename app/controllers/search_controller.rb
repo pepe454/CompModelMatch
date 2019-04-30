@@ -8,7 +8,11 @@ class SearchController < ApplicationController
   def index
 
     if Seek::Config.solr_enabled
-      perform_search (request.format.json?)
+      if params.has_key?(:keywords) || params.has_key?(:advanced_search)
+        perform_advanced_search (request.format.json?)
+      else
+        perform_search (request.format.json?)
+      end    
     else
       @results = []
     end
@@ -104,6 +108,21 @@ class SearchController < ApplicationController
     end
 
   end
+
+  def perform_advanced_search(is_json = false)
+    puts "Advanced search has been performed!"
+    perform_search (request.format.json?)
+    new_results = []
+    #doing filtering now....
+    @results.each do |result|
+
+      if not result == false
+	new_results.push(result)	
+      end
+    end
+    @results = new_results
+  end
+
 
   private
 

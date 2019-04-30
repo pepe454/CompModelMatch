@@ -47,11 +47,23 @@ RUN mkdir sqlite3-db && \
     bundle exec rake db:setup
 
 
+#advanced search
+USER root
+RUN bundle exec rails g controller advanced_searches
+COPY docker/advanced_searches_controller.rb app/controllers/
+RUN bundle exec rails g model advanced_search keywords:string search_type:string status:string min_due_date:date max_due_date:date institution:string discipline:string city:string expertise:string
+RUN bundle exec rails g migration AddTargetCompletionDateToProject target_completion:date
+RUN bundle exec rails g migration AddProjectStatusToProject project_status:string
+RUN bundle exec rake db:migrate 
+
+#RUN bundle exec rake tmp:clear
 RUN bundle exec rake assets:precompile && \
     rm -rf tmp/cache/*
 
 #root access needed for next couple of steps
 USER root
+RUN chown -R www-data:www-data public/
+RUN chmod -R g+w public/
 
 # NGINX config
 COPY docker/nginx.conf /etc/nginx/nginx.conf
@@ -68,3 +80,5 @@ EXPOSE 3000
 VOLUME ["/seek4/filestore", "/seek4/sqlite3-db", "/seek4/tmp/cache"]
 
 CMD ["docker/entrypoint.sh"]
+
+#RUN bundle exec rake seek:reindex_all

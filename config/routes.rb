@@ -67,6 +67,8 @@ SEEK::Application.routes.draw do
     end
   end
 
+  resources :advanced_searches
+
   get 'funding' => 'homes#funding', :as => :funding
   get 'index.html' => 'homes#index'
   get 'index' => 'homes#index'

@@ -18,6 +18,16 @@
 </div>
 
 <div class="form-group">
+  <%= f.label "Target Completion Date" -%>
+  <%= f.date_field :target_completion, :class=>"form-control" -%>
+</div>
+
+<div class="form-group">
+  <%= f.label "Project Status" -%>
+  <%= f.select :project_status, options_for_select(["Looking for a modeler", "Looking for an experimentalist", "Looking for modelers and experimentalist"]),:class => "form-control" %>
+</div>
+
+<div class="form-group">
   <%= f.label :description -%>
   <%= f.text_area :description, :rows => 5, :class=>"form-control" -%>
 </div>

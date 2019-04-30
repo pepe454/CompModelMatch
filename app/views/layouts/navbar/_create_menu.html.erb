@@ -17,6 +17,11 @@
     <% if can_create_institutions? %>
         <li><%= link_to "Institution", new_institution_path %></li>
     <% end %>
+	
+    <% if can_create_new_items? %>
+        <li><%= link_to "Publication", new_publication_path %></li>
+        <li><%= link_to t("document"), new_document_path %></li>
+    <% end %>
     
     <% if false %>
     <%# if can_create_new_items? %>
@@ -44,7 +49,7 @@
         <li role="presentation" class="dropdown-header"><%= t("menu.samples") -%></li>
         <%# if Sample.can_create? %>
         <li><%= link_to("Sample", select_sample_types_path) %></li>
-        <% end %>
+        <%# end %>
         <%# if SampleType.can_create? %>
         <li><%= link_to("Sample Type", new_sample_type_path) %></li>
         <%# end %>
@@ -54,10 +59,5 @@
         <%# end %>
         <li role="presentation" class="dropdown-header"><span style="color:red">You cannot add assets or other items until you are a member of a <%= t('project') %>.</span></li>
     <% end %>
-
-
-
-
   </ul>
-
 </li>

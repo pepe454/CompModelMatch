@@ -1,0 +1,41 @@
+<h1>Advanced Search </h1>
+<%= form_for @advanced_search, html: {class: "pure-form"} do |s| %>
+    <div class="field">
+        <%= s.label :keywords %> <br />
+	<%= s.text_field :keywords %>
+    </div>
+
+    <div class="field">
+        <%= s.label :seach_type %> <br />
+	<%= s.select :search_type, options_for_select(search_type_options,@search_type),
+		:class => "form-control" %>
+    </div>
+
+    <div class="field">
+        <%= s.label :status %> <br />
+	<%= s.select :status, options_for_select(Organism.order(:title).collect{|d| h("#{d.title}")}.unshift("All") ),:class => "form-control" %>
+    </div>
+
+    <div class="field">
+        <%= s.label :max_due_date %> <br />
+	<%= s.text_field :max_due_date %>
+    </div>
+
+    <div class="field">
+        <%= s.label :discipline %> <br />
+	<%= s.text_field :discipline %>
+    </div>
+
+    <div class="field">
+        <%= s.label :institution %> <br />
+	<%= s.text_field :institution %>
+    </div>
+
+    <div class="field">
+        <%= s.label :expertise %> <br />
+	<%= s.text_field :expertise %>
+    </div>
+
+    <div class="actions"><%= s.submit "Search", class: "pure-button pure-button-primary" %></div>
+
+<% end %>

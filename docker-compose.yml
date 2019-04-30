@@ -14,8 +14,8 @@ services:
   seek: # The SEEK application
     #build: .
     #image: fairdom/seek:1.7
-    image: seek48
-    container_name: seek48
+    image: seekreindex 
+    container_name: seekreindex
     command: docker/entrypoint.sh
     restart: always
     environment:
