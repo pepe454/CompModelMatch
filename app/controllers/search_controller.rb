@@ -109,17 +109,114 @@ class SearchController < ApplicationController
 
   end
 
+  #executes perform_search and applies filters from params after results have been found
   def perform_advanced_search(is_json = false)
-    puts "Advanced search has been performed!"
+    #puts "Advanced search has been performed!"
     perform_search (request.format.json?)
     new_results = []
-    #doing filtering now....
-    @results.each do |result|
+    #filtering results
+    @results.each do |result|     
+      passed_filters = true 
+      #searching based on associated models: institutions and disciplines
+      result_type = result.class
+      associated_models = result_type.reflect_on_all_associations.map(&:class_name)
+      Rails.logger.info "These are the associated types: #{associated_models}" 
 
-      if not result == false
-	new_results.push(result)	
+      #filter by institution
+      if params.has_key?(:institution) && !params[:institution].blank?
+        if associated_models.include?("Institution")
+	  insts = result.institutions.map{|i| i.title}
+          Rails.logger.info "Institutions: #{insts}, Search Institution: #{params[:institution]}" 
+          if !insts.include?("#{params[:institution]}")
+	    passed_filters = false
+          end
+        else
+          Rails.logger.info "Model did not have associated institutions"
+          passed_filters = false
+        end
+      end
+
+      #filter by disciplines
+      if params.has_key?(:discipline) && !params[:discipline].blank?  
+        if associated_models.include?("Discipline")
+	  discs = result.disciplines.map{|i| i.title}
+          Rails.logger.info "Disciplines: #{discs}, Search Discipline: #{params[:discipline]}"
+          if !discs.include?("#{params[:discipline]}")
+	    passed_filters = false
+          end
+        else
+          Rails.logger.info "Model didn't have discipline, but searched for discipline"
+	  passed_filters = false  
+        end
+      end
+
+      #TODO: add filters to tags  
+      #tools_list=person.tool_annotations.map(&:value)
+      if params.has_key?(:tool) && !params[:tool].blank?
+	if associated_models.include?("Annotation")	  
+	  #this may or may not work... 
+          tools_list = result.tool_annotations.map(&:value)
+          if !tools_list.empty?
+	    Rails.logger.info "Tools are: #{tools_list}" 
+	    if !tools_list.include?(params[:tool])
+	      passed_filters = false
+              Rails.logger.info "Did not include searched tool" 
+            end
+          else
+	    Rails.logger.info "No tools were present"
+            passed_filters = false
+          end
+	else
+	  Rails.logger.info "Result did not contain tools" 
+          passed_filters = false
+	end
+      end
+      #expertise_list=person.expertise_annotations.map(&:value)
+
+      if params.has_key?(:project_status) && params[:project_status] != "All"
+        if result.has_attribute?(:project_status)      
+          if params[:project_status] != result.project_status
+	    Rails.logger.info "Result status was actually this: '#{result.project_status}' Project status: '#{params[:project_status]}'"
+            passed_filters = false
+          end
+        else
+          passed_filters = false
+	  Rails.logger.info "Result had no status"
+        end
+      end
+
+      if params.has_key?(:min_due_date) && !params[:min_due_date].empty?
+	if result.has_attribute?(:target_completion) && !result.target_completion.nil?
+          if Date.parse(params[:min_due_date]) > Date.parse(result.target_completion) 
+	    passed_filters = false
+            Rails.logger.info "Comparison: #{Date.parse(params[:min_due_date])} is less than #{Date.parse(result.target_completion)}?"
+          end
+        else
+          passed_filters = false
+	  Rails.logger.info "Result had no target completion"
+        end
+      end
+ 
+      if params.has_key?(:max_due_date) && !params[:max_due_date].empty?
+	if result.has_attribute?(:target_completion) && !result.target_completion.nil?
+          if Date.parse(params[:max_due_date]) < Date.parse(result.target_completion) 
+	    passed_filters = false
+	    Rails.logger.info "Result had later completion of #{result.target_completion} as compared to #{params[:max_due_date]}"
+          end
+        else
+          passed_filters = false
+	  Rails.logger.info "Result had later completion"
+        end
+      end
+
+      if passed_filters
+	new_results.push(result)
+	Rails.logger.info "Result '#{result} passed filter inspection" 
+      else
+        Rails.logger.info "Result '#{result}' did not pass filter inspection"	
       end
     end
+    Rails.logger.info "Results are in: '#{new_results}'"
     @results = new_results
   end
 

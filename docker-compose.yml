@@ -14,12 +14,12 @@ services:
   seek: # The SEEK application
     #build: .
     #image: fairdom/seek:1.7
-    image: seekreindex 
-    container_name: seekreindex
+    image: seeksearch2 
+    container_name: seeksearch2
     command: docker/entrypoint.sh
     restart: always
     environment:
-      RAILS_ENV: production
+      RAILS_ENV: production 
       SOLR_PORT: 8983
       NO_ENTRYPOINT_WORKERS: 1
     env_file:
@@ -39,7 +39,7 @@ services:
   seek_workers: # The SEEK delayed job workers
       #build: .
       #image: fairdom/seek:1.7
-      image: seek48
+      image: seeksearch2
       container_name: seek-workers
       command: docker/start_workers.sh
       restart: always

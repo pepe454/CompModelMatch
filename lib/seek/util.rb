@@ -98,6 +98,10 @@ module Seek
       [DataFile, Document, Model, Presentation, Sop]
     end
 
+    def self.project_statuses
+      ["Have a manuscript in preparation, want to discuss how a modeling component can be added", "Have a dataset, want to discuss which modeling techniques can be used", "Planning a grant, want to invite experimental collaborators that have relevant data", "Planning a grant, want to discuss how a modeling component can be added"]
+    end
+
     def self.multi_files_asset_types
       asset_types.select do |c|
         c.instance_methods.include?(:content_blobs)

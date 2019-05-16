@@ -9,7 +9,7 @@
       <%= check_box_tag :add_current_user, '1', true, :id => 'default_member[add_to_project]',:name=>'default_member[add_to_project]' %> Add me to this <%= t('project') %> and
       make me the <%= t('project_administrator') %>.
     </div>
-    <div class='form-group' id='institution' style='display:none;'>
+    <div class='form-group' id='institution'> <!-- #style='display:none;'-->
       <label for='institution'>Your Institution</label>
       <%= select_tag 'default_member[institution_id]', options_from_collection_for_select(Institution.order(:title), "id", "title"), :class => 'form-control' %>
     </div>

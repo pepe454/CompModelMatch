@@ -12,29 +12,50 @@
     </div>
 
     <div class="field">
-        <%= s.label :status %> <br />
-	<%= s.select :status, options_for_select(Organism.order(:title).collect{|d| h("#{d.title}")}.unshift("All") ),:class => "form-control" %>
+        <%= s.label :project_status %> <br />
+        <%= s.select :project_status, options_for_select(["All"] + Seek::Util.project_statuses) %>
+    </div>
+
+    <div class="field">
+        <%= s.label :min_due_date %> <br />
+	<%= s.date_field :min_due_date %>
     </div>
 
     <div class="field">
         <%= s.label :max_due_date %> <br />
-	<%= s.text_field :max_due_date %>
+	<%= s.date_field :max_due_date %>
     </div>
 
     <div class="field">
         <%= s.label :discipline %> <br />
-	<%= s.text_field :discipline %>
+	<%= s.select :discipline, options_for_select(Discipline.order(:title).map{|d| d.title}), {:include_blank => true} %>
     </div>
 
     <div class="field">
+        <%= s.label :tool %> <br />
+	<%= s.text_field :tool %>
+    </div>
+
+    <%
+      all_tags,item_tags = fetch_tags_for_item @person,"tool"
+    %>
+
+    <%= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type =>'tool', :name=>"tool", :no_tags_message=>"Enter a tool you are looking for" } -%>
+    <div class="field">
         <%= s.label :institution %> <br />
-	<%= s.text_field :institution %>
+        <%= s.select :institution, options_for_select(Institution.order(:title).map{|i| i.title}), {:include_blank => true} %>
     </div>
 
     <div class="field">
         <%= s.label :expertise %> <br />
 	<%= s.text_field :expertise %>
     </div>
+
+    <%
+      all_tags,item_tags = fetch_tags_for_item @person,"expertise"
+    %>
+
+    <%= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type => 'expertise', :name=>"expertise", :no_tags_message=>"Enter an area of expertise" } -%>
 
     <div class="actions"><%= s.submit "Search", class: "pure-button pure-button-primary" %></div>
 

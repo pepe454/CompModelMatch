@@ -64,5 +64,6 @@ function start_or_setup_search {
     else
       echo "STARTING SOLR"
       bundle exec rake sunspot:solr:start
+      bundle exec rake seek:reindex_all
     fi
 }

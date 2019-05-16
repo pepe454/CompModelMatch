@@ -3,7 +3,7 @@ FROM ruby:2.4
 MAINTAINER Stuart Owen <orcid.org/0000-0003-2130-0865>, Finn Bacall
 
 ENV APP_DIR /seek4
-ENV RAILS_ENV=production
+ENV RAILS_ENV=development
 
 # need to set the locale, otherwise some gems file to install
 ENV LANG="en_US.UTF-8" LANGUAGE="en_US:UTF-8" LC_ALL="C.UTF-8"
@@ -51,12 +51,14 @@ RUN mkdir sqlite3-db && \
 USER root
 RUN bundle exec rails g controller advanced_searches
 COPY docker/advanced_searches_controller.rb app/controllers/
-RUN bundle exec rails g model advanced_search keywords:string search_type:string status:string min_due_date:date max_due_date:date institution:string discipline:string city:string expertise:string
-RUN bundle exec rails g migration AddTargetCompletionDateToProject target_completion:date
+RUN bundle exec rails g model advanced_search keywords:string search_type:string min_due_date:date max_due_date:date institution:string discipline:string tool:string city:string expertise:string
+RUN bundle exec rails g migration AddTargetCompletionToProject target_completion:date
+RUN bundle exec rails g migration AddProjectStatusToAdvancedSearch project_status:string
 RUN bundle exec rails g migration AddProjectStatusToProject project_status:string
 RUN bundle exec rake db:migrate 
 
 #RUN bundle exec rake tmp:clear
+RUN rm -rf public/assets
 RUN bundle exec rake assets:precompile && \
     rm -rf tmp/cache/*
 
