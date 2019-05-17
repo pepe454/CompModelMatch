@@ -51,7 +51,7 @@
     <%= render :partial=>"projects/organisms_selection", :locals=>{:f=>f} -%>
 <% end %>
 
-<% if @project.can_manage? %>
+<% if false %> <%# if @project.can_manage? %>
     <%= render :partial => 'assets/license_selector', :locals => { :resource => @project, :label=>"Default License",:accessor=>:default_license } %>
 
     <%= folding_panel('Default Sharing Policy', false, id: 'sharing_form',
@@ -77,7 +77,7 @@
     <% end %>
 <% end %>
 
-<% if admin_logged_in? %>
+<% if false %> <%# if admin_logged_in? %>
   <%= folding_panel('Project Settings', false, id: 'admin_section') do %>
     <span class="subtle">(Only visible to administrators)</span>
     <div class="checkbox">

@@ -3,13 +3,13 @@ FROM ruby:2.4
 MAINTAINER Stuart Owen <orcid.org/0000-0003-2130-0865>, Finn Bacall
 
 ENV APP_DIR /seek4
-ENV RAILS_ENV=development
+ENV RAILS_ENV=development 
 
 # need to set the locale, otherwise some gems file to install
 ENV LANG="en_US.UTF-8" LANGUAGE="en_US:UTF-8" LC_ALL="C.UTF-8"
 
 RUN apt-get update -qq && \
-    apt-get install -y --no-install-recommends build-essential git \
+    apt-get install -y --no-install-recommends build-essential vim git \
 		libcurl4-gnutls-dev libmagick++-dev libpq-dev libreadline-dev \
 		libreoffice libsqlite3-dev libssl-dev libxml++2.6-dev \
 		libxslt1-dev locales mysql-client nginx nodejs openjdk-8-jdk \

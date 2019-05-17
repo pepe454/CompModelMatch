@@ -111,8 +111,20 @@ class SearchController < ApplicationController
 
   #executes perform_search and applies filters from params after results have been found
   def perform_advanced_search(is_json = false)
-    #puts "Advanced search has been performed!"
-    perform_search (request.format.json?)
+    #puts "Advanced search has been performed!" 
+    #@results = []
+    if !params[:q].blank?	  
+      perform_search (request.format.json?)
+    elsif params[:search_type] != "all" 
+	    Rails.logger.info "Search type is: #{params[:search_type].singularize.camelize.constantize}" 
+      Rails.logger.info "Search box was left blank" 
+      search_type = params[:search_type].singularize.camelize.constantize
+      @results = search_type.all
+    else
+      Rails.logger.info "No keywords or search type present! No results" 
+      @results = []
+    end
+
     new_results = []
     #filtering results
     @results.each do |result|     
@@ -123,7 +135,7 @@ class SearchController < ApplicationController
       Rails.logger.info "These are the associated types: #{associated_models}" 
 
       #filter by institution
-      if params.has_key?(:institution) && !params[:institution].blank?
+      if params.has_key?(:institution) && params[:institution] != "All"
         if associated_models.include?("Institution")
 	  insts = result.institutions.map{|i| i.title}
           Rails.logger.info "Institutions: #{insts}, Search Institution: #{params[:institution]}" 
@@ -137,7 +149,7 @@ class SearchController < ApplicationController
       end
 
       #filter by disciplines
-      if params.has_key?(:discipline) && !params[:discipline].blank?  
+      if params.has_key?(:discipline) && params[:discipline] != "All"  
         if associated_models.include?("Discipline")
 	  discs = result.disciplines.map{|i| i.title}
           Rails.logger.info "Disciplines: #{discs}, Search Discipline: #{params[:discipline]}"
@@ -151,11 +163,9 @@ class SearchController < ApplicationController
       end
 
       #TODO: add filters to tags  
-      #tools_list=person.tool_annotations.map(&:value)
       if params.has_key?(:tool) && !params[:tool].blank?
-	if associated_models.include?("Annotation")	  
-	  #this may or may not work... 
-          tools_list = result.tool_annotations.map(&:value)
+	if associated_models.include?("Annotation") && result.instance_of?(Person) 	  
+	  tools_list = result.tool_annotations.map{|t| t.value.text}
           if !tools_list.empty?
 	    Rails.logger.info "Tools are: #{tools_list}" 
 	    if !tools_list.include?(params[:tool])
@@ -167,11 +177,29 @@ class SearchController < ApplicationController
             passed_filters = false
           end
 	else
-	  Rails.logger.info "Result did not contain tools" 
+	  Rails.logger.info "Result did not contain tools or was not a person" 
           passed_filters = false
 	end
       end
-      #expertise_list=person.expertise_annotations.map(&:value)
+
+      if params.has_key?(:expertise) && !params[:expertise].blank?
+	if associated_models.include?("Annotation") && result.instance_of?(Person) 	  
+	  expertise_list = result.expertise_annotations.map{|e| e.value.text}
+          if !expertise_list.empty?
+	    Rails.logger.info "Areas of Expertise are: #{expertise_list}" 
+	    if !expertise_list.include?(params[:expertise])
+	      passed_filters = false
+              Rails.logger.info "Did not include searched area of expertise" 
+            end
+          else
+	    Rails.logger.info "No areas of expertise present"
+            passed_filters = false
+          end
+	else
+	  Rails.logger.info "Result did not contain expertise or was not a person" 
+          passed_filters = false
+	end
+      end
 
       if params.has_key?(:project_status) && params[:project_status] != "All"
         if result.has_attribute?(:project_status)      

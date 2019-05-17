@@ -175,8 +175,8 @@ module RelatedItemsHelper
 
   def collect_related_items(resource)
     related = relatable_types
+    related.delete('Organism') if !Seek::Config.organisms_enabled
     related.delete('Person') if resource.class == 'Person' # to avoid the same person showing up
-
     answerable = {}
     related.each_key do |type|
       related[type][:items] = related_items_method(resource, type)

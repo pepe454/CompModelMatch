@@ -28,7 +28,7 @@
 
     <div class="field">
         <%= s.label :discipline %> <br />
-	<%= s.select :discipline, options_for_select(Discipline.order(:title).map{|d| d.title}), {:include_blank => true} %>
+	<%= s.select :discipline, options_for_select(["All"] + Discipline.order(:title).map{|d| d.title}) %>
     </div>
 
     <div class="field">
@@ -36,14 +36,14 @@
 	<%= s.text_field :tool %>
     </div>
 
-    <%
+    <%#
       all_tags,item_tags = fetch_tags_for_item @person,"tool"
     %>
 
-    <%= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type =>'tool', :name=>"tool", :no_tags_message=>"Enter a tool you are looking for" } -%>
+    <%#= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type =>'tool', :name=>"tool", :no_tags_message=>"Enter a tool you are looking for" } -%>
     <div class="field">
         <%= s.label :institution %> <br />
-        <%= s.select :institution, options_for_select(Institution.order(:title).map{|i| i.title}), {:include_blank => true} %>
+	<%= s.select :institution, options_for_select(["All"] + Institution.order(:title).map{|i| i.title}) %>
     </div>
 
     <div class="field">
@@ -51,11 +51,11 @@
 	<%= s.text_field :expertise %>
     </div>
 
-    <%
+    <%#
       all_tags,item_tags = fetch_tags_for_item @person,"expertise"
     %>
 
-    <%= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type => 'expertise', :name=>"expertise", :no_tags_message=>"Enter an area of expertise" } -%>
+    <%#= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type => 'expertise', :name=>"expertise", :no_tags_message=>"Enter an area of expertise" } -%>
 
     <div class="actions"><%= s.submit "Search", class: "pure-button pure-button-primary" %></div>
 

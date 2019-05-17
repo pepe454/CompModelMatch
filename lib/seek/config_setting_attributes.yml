@@ -55,9 +55,9 @@ filestore_path:
 tagline_prefix:
 events_enabled:
 modelling_analysis_enabled:
-organisms_enabled:
+organisms_enabled: false
 models_enabled:
-assays_enabled:
+assays_enabled: false
 publications_enabled:
 jerm_enabled:
 email_enabled:

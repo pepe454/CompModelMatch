@@ -13,7 +13,7 @@
             </p>
         <% end %>
 
-        <%= persistent_resource_id(@project) %>
+        <%#= persistent_resource_id(@project) %>
 
         <p>
           <strong>Public web page:</strong>
@@ -26,11 +26,11 @@
         </p>
 
         <p>
-          <strong>Project Status</strong> 
+          <strong>Project Status:</strong> 
           <%= @project.project_status %>
         </p>
 
-        <% unless hide_contact_details?(@project) %>
+        <% if false %> <%# unless hide_contact_details?(@project) %>
             <p>
               <strong>Internal web page:</strong>
               <%= text_or_not_specified(@project.wiki_page,:external_link=>true) %>
