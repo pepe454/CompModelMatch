@@ -10,8 +10,8 @@ class Mailer < ActionMailer::Base
     reply_to = user.person.email_with_name unless @anon
     mail(from: Seek::Config.noreply_sender,
          to: admin_emails,
-         subject: "#{Seek::Config.application_name} Feedback provided - #{topic}",
-         reply_to: reply_to)
+         subject: "#{Seek::Config.application_name} Feedback provided - #{topic}")#,
+         #reply_to: reply_to)
   end
 
   def file_uploaded(uploader, receiver, file)
@@ -20,8 +20,8 @@ class Mailer < ActionMailer::Base
     @data_file = file
     mail(from: Seek::Config.noreply_sender,
          to: [uploader.person.email_with_name, receiver.email_with_name],
-         subject: "#{Seek::Config.application_name} - File Upload",
-         reply_to: uploader.person.email_with_name)
+         subject: "#{Seek::Config.application_name} - File Upload")#,
+         #reply_to: uploader.person.email_with_name)
   end
 
   def request_publishing(owner, publisher, resources)
@@ -49,8 +49,8 @@ class Mailer < ActionMailer::Base
     @details = details
     mail(from: Seek::Config.noreply_sender,
          to: resource.managers.collect(&:email_with_name),
-         reply_to: user.person.email_with_name,
          subject: "A #{Seek::Config.application_name} member requested a protected file: #{resource.title}")
+         #reply_to: user.person.email_with_name,
   end
 
   def signup(user)
@@ -90,8 +90,8 @@ class Mailer < ActionMailer::Base
 
     mail(from: Seek::Config.noreply_sender,
          to: admin_emails,
-         reply_to: user.person.email_with_name,
          subject: "#{Seek::Config.application_name} member signed up")
+         #reply_to: user.person.email_with_name,
   end
 
   def project_changed(project)
@@ -114,8 +114,8 @@ class Mailer < ActionMailer::Base
     @user = user
     mail(from: Seek::Config.noreply_sender,
          to: project_administrator_email(project_administrator),
-         reply_to: user.person.email_with_name,
          subject: "#{Seek::Config.application_name} member signed up, please assign this person to the #{I18n.t('project').pluralize.downcase} of which you are #{I18n.t('project')} Administrator")
+         #reply_to: user.person.email_with_name,
   end
 
 
@@ -188,8 +188,8 @@ class Mailer < ActionMailer::Base
     @details = details
     mail(from: Seek::Config.noreply_sender,
          to: project.project_administrators.collect(&:email_with_name),
-         reply_to: user.person.email_with_name,
          subject: "#{@requester.email_with_name} requested membership of project: #{@resource.title}")
+         #reply_to: user.person.email_with_name,
   end
 
   private
@@ -216,8 +216,8 @@ class Mailer < ActionMailer::Base
 
     mail(from: Seek::Config.noreply_sender,
          to: requester.email_with_name,
-         subject: "A #{Seek::Config.application_name} gatekeeper #{response} your publishing requests.",
-         reply_to: gatekeeper.email_with_name)
+         subject: "A #{Seek::Config.application_name} gatekeeper #{response} your publishing requests.")#,
+         #reply_to: gatekeeper.email_with_name)
   end
 
   def publish_notification(recipient, publisher, resources, subject)
@@ -225,8 +225,8 @@ class Mailer < ActionMailer::Base
     @resources = resources
     mail(from: Seek::Config.noreply_sender,
          to: recipient.email_with_name,
-         reply_to: publisher.email_with_name,
          subject: subject)
+         #reply_to: publisher.email_with_name,
   end
 
   def admins

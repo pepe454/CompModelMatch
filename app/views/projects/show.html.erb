@@ -66,7 +66,7 @@
         <% end %>
 
 
-        <% if admin_logged_in? || @project.has_member?(current_user) %>
+	<% if false %><%# if admin_logged_in? || @project.has_member?(current_user) %>
             <p class="asset_housekeepers">
               <strong><%= t('asset_housekeeper').pluralize %>:</strong>
               <%= asset_housekeepers_link_list @project %>
