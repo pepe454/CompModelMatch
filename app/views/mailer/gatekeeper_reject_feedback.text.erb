@@ -9,7 +9,7 @@ Hi <%= @requester.name -%>,
         Comment: <%= item_and_comment[:comment].blank? ? 'No comment' : item_and_comment[:comment] %>
 
     <% end %>
-    You can also reply to <%= @gatekeeper.name %> by replying to this email.
+    You can also reply to <%= @gatekeeper.name %> by replying to <%= @gatekeeper.email %>.
 
     This is an automated email.
 

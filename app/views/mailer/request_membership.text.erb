@@ -9,7 +9,7 @@ The <%= Seek::Config.application_name %> user <%= @requester.name -%>, <%= perso
     "<%= sanitize(@details) -%>"
 
 <% end -%>
-You can reply to <%= @requester.first_name.capitalize -%> by replying to this email.
+You can reply to <%= @requester.first_name.capitalize -%> by replying to <%= @requester.email %>
 
 This is an automated email.
 

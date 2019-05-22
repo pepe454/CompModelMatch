@@ -2,6 +2,7 @@
 <% versioned_resource ||= resource -%>
 <% creators ||= nil %>
 <% authors_title||=nil %>
+<% annotatable_resource = true if annotatable_resource.nil? %>
 
 <% if creators || resource.respond_to?("creators") %>
     <%= render partial: 'assets/resource_authors_box', locals: { resource: versioned_resource,
@@ -38,7 +39,7 @@
     <%= render :partial=>"assets/tags_box", :no_tags_message=>"Add tags (comma separated) ..." -%>
 <% end -%>
 
-<% if resource.respond_to? :attributions_objects -%>
+<% if resource.respond_to?(:attributions_objects) && annotatable_resource -%>
     <%= render :partial => "assets/resource_attributions_box",
                :locals => { :resource => resource, :attributed_to => resource.attributions_objects,
                             :truncate_to => truncate_length_for_boxes } -%>

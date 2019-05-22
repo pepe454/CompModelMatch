@@ -7,9 +7,12 @@ class Mailer < ActionMailer::Base
     @details = details
     @topic = topic
     @person = user.try(:person)
+    recipients = admin_emails.push(Seek::Config.support_email_address)
+    Rails.logger.info "Email list: #{recipients}"
+    Rails.logger.info "Support: #{Seek::Config.support_email_address}"
     reply_to = user.person.email_with_name unless @anon
     mail(from: Seek::Config.noreply_sender,
-         to: admin_emails,
+         to: recipients,
          subject: "#{Seek::Config.application_name} Feedback provided - #{topic}")#,
          #reply_to: reply_to)
   end

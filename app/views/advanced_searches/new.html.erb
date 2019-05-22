@@ -16,13 +16,11 @@
         <%= s.select :project_status, options_for_select(["All"] + Seek::Util.project_statuses) %>
     </div>
 
-    <div class="field">
-        <%= s.label :min_due_date %> <br />
-	<%= s.date_field :min_due_date %>
-    </div>
+    <%= s.label "Time range for project completion" %> <br/>
 
-    <div class="field">
-        <%= s.label :max_due_date %> <br />
+    <div class="field" style = "display: inline-flex;">
+	<%= s.date_field :min_due_date -%>
+	<p style="margin-left:5px; margin-right:5px;"> to </p>
 	<%= s.date_field :max_due_date %>
     </div>
 
@@ -36,11 +34,65 @@
 	<%= s.text_field :tool %>
     </div>
 
-    <%#
-      all_tags,item_tags = fetch_tags_for_item @person,"tool"
+    <%
+      all_tags,item_tags = fetch_tags_for_item Person.new,"tool"
+      type = "tool"
+      name = "tool"
+      no_tags_message = "There are no tags to search for"
+      all_tags.sort_by(&:text)
+      input_name = "#{name}_list"
+      existing_tags = item_tags.map {|t| t.text} 
     %>
 
-    <%#= render :partial=>"tags/select_tags",:locals=>{:all_tags=>all_tags, :item_tags=>item_tags, :type =>'tool', :name=>"tool", :no_tags_message=>"Enter a tool you are looking for" } -%>
+    <div style="display: none;">
+      <%= tags_input(input_name, existing_tags, :typeahead => {:type => type}) %>
+    </div>
+
+    <% cache "suggestions_for_#{name}", skip_digest: true do %>
+      <%
+        suggested_limit ||= 30
+        suggested_tags = all_tags.sort { |a, b| b.tag_count <=> a.tag_count }[0...suggested_limit]
+        suggested_tags.sort! { |a, b| a.text <=> b.text }
+      %>
+      <% if suggested_limit > 0 && suggested_tags.count > 0 -%>
+        <p style="font-size: 93%; margin-bottom: 0.2em; padding: 0 inherit; text-align: left; vertical-align: middle;">
+          <%= link_to_function ("View suggestions" + expand_image("0.3em")).html_safe, visual_effect(:toggle_blind, "#{name}_tag_suggestions", :duration => 0.4) %>
+        </p>
+        <div id="<%= name -%>_tag_suggestions" style="font-size: 93%; color: #333333; display: none; text-align: center; margin-top: 0.5em; padding: 0.3em;">
+          <div class="tags_smaller">
+            <div id="<%= name -%>_select_tags" class="hTagcloud">
+              <div class="popularity">
+                <% unless suggested_tags.blank? -%>
+                    <% ann_cloud suggested_tags, %w(popular v-popular vv-popular vvv-popular vvvv-popular) do |tag, css_class| -%>
+                        <%#= link_to tag.text, "javascript:$j('##{input_name}').tagsinput('add', '#{tag.text}');", :class => css_class -%>
+			<%= link_to tag.txt, :class => css_class -%>
+                    <% end -%>
+                <% end -%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end -%>
+    <!--
+        <p style="font-size: 93%; margin-bottom: 0.2em; padding: 0 inherit; text-align: left; vertical-align: middle;">
+          <%#= link_to_function ("View suggestions" + expand_image("0.3em")).html_safe, visual_effect(:toggle_blind, "tool_tag_suggestions", :duration => 0.4) %>
+        </p>
+        <div id="tool_tag_suggestions" style="font-size: 93%; color: #333333; display: none; text-align: center; margin-top: 0.5em; padding: 0.3em;">
+          <div class="tags_smaller">
+            <div id="tool_select_tags" class="hTagcloud">
+              <div class="popularity">
+                <%# unless suggested_tags.blank? -%>
+                    <%# ann_cloud suggested_tags, %w(popular v-popular vv-popular vvv-popular vvvv-popular) do |tag, css_class| -%>
+                        <%#= link_to tag.text, "javascript:$j('#tool_list').tagsinput('add', '#{tag.text}');", :class => css_class -%>
+                    <%# end -%>
+                <%# end -%>
+              </div>
+            </div>
+          </div>
+        </div>
+    -->
+
     <div class="field">
         <%= s.label :institution %> <br />
 	<%= s.select :institution, options_for_select(["All"] + Institution.order(:title).map{|i| i.title}) %>

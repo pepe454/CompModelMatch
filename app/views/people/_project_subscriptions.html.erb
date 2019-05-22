@@ -1,4 +1,4 @@
-<%= folding_panel("Subscriptions", true, 'data-tooltip' => tooltip("Click to see subscriptions")) do %>
+<%= folding_panel("Subscriptions", true) do %>
     <% project_subscriptions = person.project_subscriptions.uniq %>
     <% if project_subscriptions.empty? %>
         <span class='none_text'>None</span>

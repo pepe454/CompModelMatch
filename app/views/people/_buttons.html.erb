@@ -16,13 +16,20 @@
       <li>
         <%= image_tag_for_key('edit', edit_person_path(@person), "Edit Person Profile", nil, 'Edit Profile') -%>
       </li>
+     
+      <li>
+        <%= image_tag_for_key("group_edit", edit_person_path(@person, :edit_roles => true), "Edit Person Profile", nil, 'Edit project roles and subscriptions') -%>
+      </li>
+    
       <% if mine?(@person) -%>
           <li>
-            <%= image_tag_for_key "lock", url_for({:controller=>:users, :action=>:edit, :id=>@person.user}), "Manage Account", nil, "Manage Account" -%>
+            <%= image_tag_for_key "lock", url_for({:controller=>:users, :action=>:edit, :id=>@person.user}), "Change password", nil, "Change password" -%>
           </li>
-          <li>
-            <%= image_tag_for_key "oauth", user_oauth_sessions_path(@person.user), "OAuth Sessions", nil, "OAuth Sessions" -%>
-          </li>
+	  <% if false %>
+            <li>
+              <%= image_tag_for_key "oauth", user_oauth_sessions_path(@person.user), "OAuth Sessions", nil, "OAuth Sessions" -%>
+            </li>
+          <% end %>
       <% end -%>
       <% if admin_logged_in? -%>
           <li>

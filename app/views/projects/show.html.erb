@@ -46,10 +46,12 @@
       </div>
 
       <div class="col-md-6">
-        <p class="pals">
-          <strong><%= Seek::Config.dm_project_name %> <%= t('pal').pluralize %>:</strong>
-          <%= pals_link_list @project -%>
-        </p>
+        <% if false %>
+          <p class="pals">
+            <strong><%= Seek::Config.dm_project_name %> <%= t('pal').pluralize %>:</strong>
+            <%= pals_link_list @project -%>
+          </p>
+	<% end %>       
 
         <% if @project.respond_to?(:project_coordinators) %>
             <p class="project_coordinators">

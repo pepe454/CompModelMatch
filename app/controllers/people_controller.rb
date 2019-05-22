@@ -108,7 +108,11 @@ class PeopleController < ApplicationController
   end
 
   # GET /people/1/edit
-  def edit
+  def edit 
+    @edit_roles = false
+    if params.has_key?(:edit_roles)
+      @edit_roles = params[:edit_roles] 
+    end
     possible_unsaved_data = "unsaved_#{@person.class.name}_#{@person.id}".to_sym
     if session[possible_unsaved_data]
       # if user was redirected to this 'edit' page from avatar upload page - use session

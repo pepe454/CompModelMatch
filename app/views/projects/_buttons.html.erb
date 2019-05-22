@@ -4,7 +4,7 @@
 <% if can_browse_openbis?(item) %>
     <%= button_link_to("Browse openBIS", :openbis_square, browse_project_openbis_endpoints_path(item),{icon_options:{height:'18px'}}) %>
 <% end %>
-<%= button_link_to('Overview', 'graph_nodes', overview_project_path(item)) -%>
+<%#= button_link_to('Overview', 'graph_nodes', overview_project_path(item)) -%>
 <% if item.try(:has_member?,current_user) || admin_logged_in? -%>
     <% tooltip_text="This will present you with a short report about the items that have been shared outside of your #{t('project')}" %>
     <%= button_link_to("Asset report", 'report', asset_report_project_path(item), 'data-tooltip' => tooltip(tooltip_text)) -%>
@@ -28,7 +28,9 @@
     <% if item.try(:can_be_administered_by?, current_user) -%>
       <li><%= image_tag_for_key('manage', edit_project_path(item), "Manage #{t('project')}", nil, "Manage #{t('project')}") -%></li>
       <li><%= image_tag_for_key "group_edit", admin_members_project_path(item), "Administer", nil, "Administer #{t('project')} members" -%></li>
-      <li><%= image_tag_for_key "group_edit", admin_member_roles_project_path(item), "Administer", nil, "Administer #{t('project')} members roles" -%></li>
+      <% if false %>
+        <li><%= image_tag_for_key "group_edit", admin_member_roles_project_path(item), "Administer", nil, "Administer #{t('project')} members roles" -%></li>
+      <% end %>
       <% if OpenbisEndpoint.can_create? %>
         <li><%= image_tag_for_key :openbis_square, project_openbis_endpoints_path(item), "Administer", {}, "Administer openBIS",false,16 -%></li>
       <% end %>

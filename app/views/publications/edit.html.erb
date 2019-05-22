@@ -24,20 +24,22 @@
     <% if Seek::Config.events_enabled -%>
       <%= f.fancy_multiselect :events, other_projects_checkbox: true %>
     <% end -%>
+    
+    <% if false %>
+      <%= f.fancy_multiselect :investigations, other_projects_checkbox: true %>
 
-    <%= f.fancy_multiselect :investigations, other_projects_checkbox: true %>
-
-    <%= f.fancy_multiselect :studies, { other_projects_checkbox: true,
+      <%= f.fancy_multiselect :studies, { other_projects_checkbox: true,
                                                     group_options_by: ->(s) { s.investigation.try(:title) }  } %>
 
-    <%= f.fancy_multiselect :assays, { other_projects_checkbox: true,
+      <%= f.fancy_multiselect :assays, { other_projects_checkbox: true,
                                                    group_options_by: ->(a) { a.study.try(:title) }  } %>
 
-    <%= f.fancy_multiselect :data_files, other_projects_checkbox: true %>
+      <%= f.fancy_multiselect :data_files, other_projects_checkbox: true %>
 
-    <%= f.fancy_multiselect :models, other_projects_checkbox: true %>
+      <%= f.fancy_multiselect :models, other_projects_checkbox: true %>
 
-    <%= f.fancy_multiselect :presentations, other_projects_checkbox: true %>
+      <%= f.fancy_multiselect :presentations, other_projects_checkbox: true %>
+    <% end %>   
 
     <%= f.submit  'Update',data: { disable_with: 'Updating...' }, :class => 'btn btn-primary' %>
     or <%= cancel_button(publication_path(@publication)) %>

@@ -14,6 +14,7 @@
    show_publications=true if show_publications.nil?
    show_publications = show_publications && Seek::Config.publications_enabled
    taggable = resource_class.is_taggable?
+   taggable2=true if taggable2.nil?
    sharing_enable=true if sharing_enable.nil?
    attribution_enable=true if attribution_enable.nil?
    creators_enable=true if creators_enable.nil?
@@ -23,7 +24,7 @@
     <%= render :seek_partial => "sharing/form" -%>
 <% end -%>
 
-<% if taggable -%>
+<% if taggable && taggable2 -%>
     <%= render :seek_partial=>"assets/select_tags" -%>
 <% end -%>
 

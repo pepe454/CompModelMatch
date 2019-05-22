@@ -32,8 +32,7 @@ module TagsHelper
 
   def list_item_tags_list(tags, options = {})
     return content_tag(:span, class: 'none_text') { options[:blank] || 'Not specified' } if tags.blank?
-    tags.map do |t|
-      divider = tags.last == t ? '' : "<span class='spacer'>,</span> ".html_safe
+    tags.map do |t|divider = tags.last == t ? '' : "<li> ".html_safe
       link_for_ann(t, options) + divider
     end.join('').html_safe
   end
