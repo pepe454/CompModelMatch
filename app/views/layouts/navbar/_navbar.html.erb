@@ -18,16 +18,28 @@
     <div class="collapse navbar-collapse" id="navbar-inner">
 
       <ul class="nav navbar-nav">
-        <%= render :partial => "layouts/navbar/browse_menu" %>
+
+<!-- DB commented out to help reorganize and simplify the navbar  -->
+        <%= render :partial => "layouts/navbar/browse_menu" %>   		
         <%= render :partial => "layouts/navbar/create_menu" if logged_in_and_registered? %>
-        <%= render :partial => "layouts/navbar/help_menu" if Seek::Config.documentation_enabled %>
+        <%= render :partial => "layouts/navbar/help_menu" if Seek::Config.documentation_enabled %> 	
+
+        <% if logged_in_and_registered? %>
+          <li><%= link_to t("Create project"), new_project_path %></li>
+
+<!-- DB moved the Create oab to the right of the Create Projec menu -->
+
+	<% end %>
       </ul>
 
       <%= render :partial => 'layouts/navbar/search_bar' if Seek::Config.solr_enabled %>
       <ul class="nav navbar-nav"> 
-	<li><%= link_to('Advanced Search', new_advanced_search_path) %></li>
+	<li><%= link_to('Discover', new_advanced_search_path) %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+<!-- DB added this in to push Help to the far right to reorganize and simplify navbar -->
+<!-- End of new addition --> 
+
         <% if logged_in_and_registered? %>
             <%= render :partial => "layouts/navbar/user_menu" %>
         <% else %>

@@ -23,7 +23,37 @@
     </span>
 <% end -%>
 
-<%= admin_dropdown do %>
+<% if mine?(item) || item.can_be_edited_by?(current_user) -%>
+  <% if item.try(:can_be_administered_by?, current_user) -%>
+    <%= button_link_to("Manage #{t('project')}", 'manage', edit_project_path(item), 'data-tooltip' => tooltip("Edit project title, status, web page, and more")) -%>
+    <%= button_link_to("Administer #{t('project')} members", 'group_edit', admin_members_project_path(item), 'data-tooltip' => tooltip("Add or remove members and change member roles")) -%>
+    <% if OpenbisEndpoint.can_create? %>
+      <%= button_link_to("Administer openBIS", :openbis_square, project_openbis_endpoints_path(item)) -%>
+    <% end %>
+  <% else %>
+    <%= button_link_to("Edit #{t('project')} Details", 'edit', edit_project_path(item), 'data-tooltip' => tooltip("Edit project title, status, web page, and more")) -%>
+  <% end -%>
+  <% if admin_logged_in? -%>
+    <% if item.can_delete?(current_user) -%>
+      <%= button_link_to("Delete #{text_for_resource item}", 'destroy', url_for(item),
+                         { data: { confirm: 'Are you sure?' }, method: :delete }) -%>
+    <% elsif item.can_manage?(current_user) -%>
+      <% explanation = unable_to_delete_text(item) %>
+      <a data-tooltip='<%= "#{tooltip(explanation)}" -%>' class="btn btn-default" onclick = 'javascript:alert(<%= "\"#{explanation}\"" -%>)' href="#" data-original-title="" title="">
+        <%= image('destroy', alt: 'Delete', class: 'disabled') %>
+        Delete <%= text_for_resource item %>
+      </a>
+      <%#= delete_icon(item,current_user) %>
+      <%#= button_link_to("Delete #{text_for_resource item}", 'destroy', url_for(item), %>
+      <!-- <span class='disabled_icon disabled' onclick='javascript:alert(\"#{explanation}\")' data-tooltip='<%#= "#{tooltip(explanation)}" -%>' > 
+      <%# image('destroy', alt: 'Delete', class: 'disabled') %>
+      Delete <%#= text_for_resource item %> 
+      </span> -->
+    <% end %>
+  <% end -%>
+<% end -%>
+
+<% if false %> <%#= admin_dropdown do %>
   <% if mine?(item) || item.can_be_edited_by?(current_user) -%>
     <% if item.try(:can_be_administered_by?, current_user) -%>
       <li><%= image_tag_for_key('manage', edit_project_path(item), "Manage #{t('project')}", nil, "Manage #{t('project')}") -%></li>

@@ -16,7 +16,7 @@ module AvatarsHelper
   # 4) url - when the avatar is clicked, this is the url to redirect to; by default - the url of the "object";
   # 5) alt - text to show as 'alt' / 'tooltip'; by default "name" attribute of the "object"; when empty string - nothing is shown;
   # 6) "show_tooltip" - when set to true, text in "alt" get shown as tooltip; otherwise put in "alt" attribute
-  def avatar(object, size = 200, return_image_tag_only = false, url = nil, alt = nil, show_tooltip = true, css_class = 'framed')
+  def avatar(object, size = 200, return_image_tag_only = false, url = nil, alt = nil, show_tooltip = true, css_class = 'rounded')
     title = get_object_title(object)
 
     alternative, tooltip_text = avatar_alternative_and_tooltip_text(alt, show_tooltip, title)

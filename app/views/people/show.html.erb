@@ -11,7 +11,8 @@
 
     <div class="row">
       <div class="col-md-6">
-        <%= persistent_resource_id(@person) %>
+<!-- DB commented next line out which represents the "SEEK ID:" in the profile view (requested by MB) -->
+        <%#= persistent_resource_id(@person) %>
         <p>
           <% locations = @person.locations -%>
           <% unless locations.empty? -%>
@@ -29,32 +30,32 @@
           <b>Disciplines:</b>
           <%= discipline_list(@person.disciplines) %>
         </p>
-        <%= render :partial=>"areas_of_expertise", :locals => {:person=>@person} %>
+        <%#= render :partial=>"areas_of_expertise", :locals => {:person=>@person} %>
+	<%= render :partial=>"expertise_areas", :locals => {:person=>@person} %>	
+
         <p>
           <b>ORCID:</b>
           <%= orcid_identifier(@person) -%>
         </p>
       </div>
-      <% if admin_or_me %>
-          <div class="col-md-6">
-
-            <p>
-              <span class='none_text'>Only shown to you and administrators</span>
-            </p>
-
-            <% if !@person.user.nil? && @person.user.login %>
-                <p>
-                  <b>Login name:</b>
-                  <%= h @person.user.login %>
-                </p>
-            <% end %>
-            <p>
-              <b>Joined:</b>
-              <%= @person.registered? ? date_as_string(@person.user.created_at, true) : 'This person has not yet registered' -%>
-            </p>
-
-          </div>
-      <% end %>
+      <div class="col-md-6">
+        <% if admin_or_me %>
+          <p>
+            <span class='none_text'>Only shown to you and administrators</span>
+          </p>
+          <% if !@person.user.nil? && @person.user.login %>
+              <p>
+                <b>Login name:</b>
+                <%= h @person.user.login %>
+              </p>
+          <% end %>
+          <p>
+            <b>Joined:</b>
+            <%= @person.registered? ? date_as_string(@person.user.created_at, true) : 'This person has not yet registered' -%>
+          </p>
+        <% end %>
+        <%= render :partial=>"proficient_tools", :locals=>{:person=>@person} %>
+      </div>
     </div>
 
   </div>

@@ -11,13 +11,17 @@ class AdvancedSearchesController < ApplicationController
     def create
 	search_params
 	d = params[:advanced_search]
-	redirect_to controller: 'search', action: 'index', q: d[:keywords], tool: d[:tool], search_type: d[:search_type], advanced_search: true, min_due_date: d[:min_due_date], max_due_date: d[:max_due_date], institution: d[:institution], discipline: d[:discipline], city: d[:city], expertise: d[:expertise], project_status: d[:project_status]
+        #if !d[:browse_type].blank?
+        #    redirect_to controller: d[:browse_type], action: 'index'  
+        #else 
+	redirect_to controller: 'search', action: 'index', q: d[:keywords], tool: d[:tool], search_type: d[:search_type], browse_type: d[:browse_type], advanced_search: true, min_due_date: d[:min_due_date], max_due_date: d[:max_due_date], institution: d[:institution], discipline: d[:discipline], city: d[:city], expertise: d[:expertise], project_status: d[:project_status]
+        #end
     end
 
     private
 
     def search_params 
-        params.require(:advanced_search).permit(:keywords, :tool, :search_type, :project_status, :min_due_date, :max_due_date, :institution, :discipline, :city, :expertise) 
+        params.require(:advanced_search).permit(:browse_type, :keywords, :tool, :search_type, :project_status, :min_due_date, :max_due_date, :institution, :discipline, :city, :expertise) 
 	d = params[:advanced_search]
         @search_query = d[:keywords]
 	@search_type = d[:search_type]

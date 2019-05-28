@@ -54,6 +54,7 @@ COPY docker/advanced_searches_controller.rb app/controllers/
 RUN bundle exec rails g model advanced_search keywords:string search_type:string min_due_date:date max_due_date:date institution:string discipline:string tool:string city:string expertise:string
 RUN bundle exec rails g migration AddTargetCompletionToProject target_completion:date
 RUN bundle exec rails g migration AddProjectStatusToAdvancedSearch project_status:string
+RUN bundle exec rails g migration AddBrowseTypeToAdvancedSearch browse_type:string
 RUN bundle exec rails g migration AddProjectStatusToProject project_status:string
 RUN bundle exec rake db:migrate 
 

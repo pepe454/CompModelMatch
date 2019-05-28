@@ -1,4 +1,4 @@
-<h1>Signup for <%= Seek::Config.application_name %></h1>
+<h1>Sign up for <%= Seek::Config.application_name %></h1>
 
 
 <% if User.count == 0 -%>
@@ -26,9 +26,9 @@
       </p>
       <%= form_for @user do |f| -%>
           <div class="form-group">
-            <label>Login name</label>
+            <label>Username</label>
             <%= f.text_field :login, :class => 'form-control' %>
-            <p class="help-block">Login should contain a minimum of 3 characters.</p>
+            <p class="help-block">Username should contain a minimum of 3 characters.</p>
           </div>
 
           <div class="form-group">

@@ -72,8 +72,11 @@ class Permission < ActiveRecord::Base
   def affected_people
     if contributor_type == 'Person'
       [contributor]
-    elsif contributor_type == 'Project'
-      contributor.current_people
+    elsif contributor.nil?    
+      []
+    elsif contributor_type == 'Project' 
+      if !contributor.nil?
+        contributor.current_people
     elsif contributor.respond_to?(:people)
       contributor.people
     else

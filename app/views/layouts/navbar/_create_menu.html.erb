@@ -7,8 +7,8 @@
   <ul class="dropdown-menu" role="menu">
     <li role="presentation" class="dropdown-header visible-md">Create</li>
 
-    <li role="presentation" class="dropdown-header"><%= t("menu.yellow_pages") -%></li>
-    <% if false %> <%# if can_create_programmes? %>
+    <!-- <li role="presentation" class="dropdown-header"><%#= t("menu.yellow_pages") -%></li> -->
+    <% if Seek::Config.programmes_enabled && can_create_programmes? %>
         <li><%= link_to t('programme'), new_programme_path %></li>
     <% end %>
     <% if can_create_projects? %>
