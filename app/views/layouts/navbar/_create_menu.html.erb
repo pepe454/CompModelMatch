@@ -1,13 +1,12 @@
 <li class="dropdown" id="create-menu">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    <span class="hidden-md">Create</span>
+    <!--<span class="hidden-md">Create</span> -->
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li role="presentation" class="dropdown-header visible-md">Create</li>
-
-    <!-- <li role="presentation" class="dropdown-header"><%#= t("menu.yellow_pages") -%></li> -->
+    <!-- <li role="presentation" class="dropdown-header visible-md">Create</li>
+    <li role="presentation" class="dropdown-header"><%#= t("menu.yellow_pages") -%></li> -->
     <% if Seek::Config.programmes_enabled && can_create_programmes? %>
         <li><%= link_to t('programme'), new_programme_path %></li>
     <% end %>
@@ -18,10 +17,10 @@
         <li><%= link_to "Institution", new_institution_path %></li>
     <% end %>
 	
-    <% if can_create_new_items? %>
-        <li><%= link_to "Publication", new_publication_path %></li>
-        <li><%= link_to t("document"), new_document_path %></li>
-    <% end %>
+    <%# if can_create_new_items? %>
+    <li><%= link_to "Publication", new_publication_path %></li>
+    <li><%= link_to t("document"), new_document_path %></li>
+    <%# end %>
     
     <% if false %>
     <%# if can_create_new_items? %>

@@ -19,7 +19,7 @@
     <%= button_link_to "Change Password", "lock", url_for({:controller=>:users, :action=>:edit, :id=>@person.user}) -%> 
   <% end -%>
   <% if admin_logged_in? -%>
-    <%= button_link_to "Delete Person", "destroy", person_path(@person),  
+    <%= button_link_to "Delete Profile", "destroy", person_path(@person),  
 		       { data: { confirm: 'Are you sure?' }, :method => :delete} -%> 
     <%#= image_tag_for_key "destroy", person_path(@person), "Delete Person", { data: { confirm: 'Are you sure?' }, :method => :delete}, "Delete Person" -%>
   <% end -%>

@@ -115,17 +115,11 @@ class SearchController < ApplicationController
     #@results = []
     if !params[:q].blank?	  
       perform_search (request.format.json?)
-    elsif params[:search_type] != "all" #|| !params[:browse_type].blank?
-      Rails.logger.info "This is the browse type: #{params[:browse_type]}" 
-      Rails.logger.info "This is the search type: #{params[:search_type]}" 
-      if params[:search_type] == "all" || params[:search_type].blank?
-        #redirect_to(:controller => params[:browse_type], :action => 'index') and return  
-	#return
-        browse_type = params[:browse_type].singularize.camelize.constantize
-	@results = browse_type.all
-      else
-        search_type = params[:search_type].singularize.camelize.constantize
-        @results = search_type.all
+    elsif params[:search_type] != "all" 
+	    Rails.logger.info "Search type is: #{params[:search_type].singularize.camelize.constantize}" 
+      Rails.logger.info "Search box was left blank" 
+      search_type = params[:search_type].singularize.camelize.constantize
+      @results = search_type.all
     else
       Rails.logger.info "No keywords or search type present! No results" 
       @results = []

@@ -77,6 +77,7 @@ class Permission < ActiveRecord::Base
     elsif contributor_type == 'Project' 
       if !contributor.nil?
         contributor.current_people
+      end
     elsif contributor.respond_to?(:people)
       contributor.people
     else

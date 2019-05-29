@@ -1,7 +1,17 @@
 <h1>Register Publication</h1>
 
 <div>
-<%= error_messages_for('publication', :message => nil) %>
+<%= error_messages_for('publication') %> <%#, :message => nil) %>
+
+<% if current_user.person.projects.empty? %>
+    <div id="error_flash" class="fade in alert alert-danger alert-dismissable" role="alert"><button class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times</span></button>
+      You are not authorized to create a publication. Only members of known projects, institutions or work groups are allowed to create new content.
+    </div>
+<% end %>
+
+
+
+
 
 <!-- Nav tabs -->
 <% subaction = @subaction || 'Register' # default tab is the old Register %>
