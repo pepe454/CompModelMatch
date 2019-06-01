@@ -23,7 +23,7 @@
         <%= render :partial => "layouts/navbar/browse_menu" %>   		
 
         <% if logged_in_and_registered? %>
-          <li><%= link_to t("Create project"), new_project_path %></li>
+          <li> <a style="padding-right:0px; margin-right:-5px;" href="/projects/new"><span>Create Project</span></a> </li>
           <%= render :partial => "layouts/navbar/create_menu" %>
 <!-- DB moved the Create oab to the right of the Create Projec menu -->
 

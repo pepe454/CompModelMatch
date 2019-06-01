@@ -69,9 +69,29 @@
 -->
 
 <div class="panel panel-default" id="home_description">
+ <div class="panel-heading">Advanced Search </div>
  <div class="panel-body">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" style="margin-left:6%">
+      <h4>General Search</h4>
+      <%= form_for @advanced_search, html: {class: "pure-form"} do |s| %>
+
+        <div class="field">
+          <%= s.label :keywords %> <br />
+	  <%= s.text_field :keywords %>
+        </div>
+
+        <div class="field">
+          <%= s.label :search_type %> <br/>
+          <%= s.select :search_type, options_for_select(search_type_options,@search_type),
+                       :class => "form-control" %>
+        </div>  
+
+        <div class="actions"><%= s.submit "Search", class: "pure-button pure-button-primary" %></div>
+      <% end %>
+
+    </div>
+    <div class="col-md-4">
       <h4>Project Search</h4>
       <%= form_for @advanced_search, html: {class: "pure-form"} do |s| %>
 
@@ -107,7 +127,7 @@
         <div class="actions"><%= s.submit "Search", class: "pure-button pure-button-primary" %></div>
       <% end %>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
       <h4>Person Search</h4> 
       <%= form_for @advanced_search, html: {class: "pure-form"} do |s| %>
 

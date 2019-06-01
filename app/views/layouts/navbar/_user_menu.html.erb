@@ -1,4 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script>
 
 jQuery.noConflict();
@@ -15,12 +15,12 @@ $(document).ready(function(){
 
 })(jQuery); 
 
-</script>
+</script> -->
 <!-- <script>jQuery.noConflict();</script> -->
 
 <% if logged_in_and_registered? %>
     <li class="dropdown" id="user-menu">
-      <a href="#" id="user-menu-button" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+      <a href="#" style="padding-right:0px;" id="user-menu-button" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
         <% current_person = current_user.person %>
         <% if current_person.avatar.nil? %>
             <%= image_tag(icon_filename_for_key("person_avatar"), :size => "18x18") %>
@@ -35,33 +35,30 @@ $(document).ready(function(){
 	<% if false %>
           <li><%= link_to 'Edit profile', edit_person_path(current_person) -%></li>
 	<% end %>
-        <li><%= link_to 'Change password', edit_user_path(current_user) -%></li>
-
         <li><%= link_to 'My items', items_person_path(current_person) -%></li>
         <% unless current_person.projects.empty? %>
-            <li class="dropdown" style="padding:3px 0px; color:#333333; font-size:14px; margin-top:0px;">
+            <!-- <li class="dropdown" style="padding:3px 0px; color:#333333; font-size:14px; margin-top:0px;">
               <a href="#" class="dropdown-toggle project-drop" data-toggle="dropdown" role="button" aria-expanded="false">
                 <span class="hidden-md">My Projects</span>
                 <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" style="padding:0 0; width:100%; border:none; margin:0;" role="menu">
-                <li role="presentation" class="dropdown-header visible-md">My Projects</li>
+              </a> -->
+              <!-- <ul class="dropdown-menu" style="padding:0 0; width:100%; border:none; margin:0;" role="menu"> -->
+                <!--<li role="presentation" class="dropdown-header visible-md">My Projects</li>-->
+                <li style="margin-left:20px; color:#333333">My Projects </li>
                 <% current_person.projects.each do |project| %>
-                  <li class="project-item" style = "font-size:11.5px;">    
+                  <li class="project-item" style = "margin-left:20px; color:#333333; font-size:11.5px;">    
                     <a href="<%= project_path(project) %>">
-		      <div style="margin-left:10px; display:inline-block;">
-                        <span style="margin-right:15px;float:left;">
-		  	  <%= avatar(project, 20) -%>
+		      <div style="display:inline-block;">
+                        <span style="float:left; margin-right:3px;">
+		          <%= avatar(project, 20) -%>
                         </span>
-		        <span>
-                          <%= project.title %>
-                        </span>
+                        <%= project.title %>
                       </div>
 		    </a>
  		  </li>
                 <% end %>
-              </ul>
-            </li>
+              <!-- </ul> -->
+            <!-- </li> -->
         <% end %>
 
         <li role="presentation" class="dropdown-header">
@@ -89,6 +86,8 @@ $(document).ready(function(){
             <li><%= link_to 'Server admin', admin_path -%></li>
         <% end %>
         <li role="presentation" class="divider"></li>
+        <li><%= link_to 'Change password', edit_user_path(current_user) -%></li>
+
         <li><%= link_to 'Provide feedback', feedback_home_path -%></li>
         <li><%= link_to 'Logout', logout_path, data: { confirm: 'Are you sure you wish to logout?' } -%></li>
       </ul>

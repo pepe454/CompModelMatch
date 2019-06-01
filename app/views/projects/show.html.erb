@@ -27,7 +27,7 @@
 
         <p>
           <strong>Project Status:</strong> 
-          <%= @project.project_status %>
+          <%= text_or_not_specified(@project.project_status) %>
         </p>
 
         <% if false %> <%# unless hide_contact_details?(@project) %>

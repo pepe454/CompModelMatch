@@ -7,4 +7,6 @@ docker commit $containerName $containerName
 docker-compose down
 docker-compose up -d
 
+docker exec -it -u 0 $containerName bundle exec rake seek:reindex_all 
+docker exec -it -u 0 $containerName bundle exec rake seek:workers:restart
 docker exec -it -u 0 $containerName bash

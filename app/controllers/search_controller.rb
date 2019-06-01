@@ -116,7 +116,7 @@ class SearchController < ApplicationController
     if !params[:q].blank?	  
       perform_search (request.format.json?)
     elsif params[:search_type] != "all" 
-	    Rails.logger.info "Search type is: #{params[:search_type].singularize.camelize.constantize}" 
+      Rails.logger.info "Search type is: #{params[:search_type].singularize.camelize.constantize}" 
       Rails.logger.info "Search box was left blank" 
       search_type = params[:search_type].singularize.camelize.constantize
       @results = search_type.all
@@ -214,7 +214,8 @@ class SearchController < ApplicationController
       end
 
       if params.has_key?(:min_due_date) && !params[:min_due_date].empty?
-	if result.has_attribute?(:target_completion) && !result.target_completion.nil?
+	if result.has_attribute?(:target_completion) && !result.target_completion.blank?
+          Rails.logger.info "Result's completion is this: #{result.target_completion}" 
           if Date.parse(params[:min_due_date]) > Date.parse(result.target_completion) 
 	    passed_filters = false
             Rails.logger.info "Comparison: #{Date.parse(params[:min_due_date])} is less than #{Date.parse(result.target_completion)}?"
@@ -226,7 +227,8 @@ class SearchController < ApplicationController
       end
  
       if params.has_key?(:max_due_date) && !params[:max_due_date].empty?
-	if result.has_attribute?(:target_completion) && !result.target_completion.nil?
+	if result.has_attribute?(:target_completion) && !result.target_completion.blank?
+          Rails.logger.info "Result's completion is this: #{result.target_completion}" 
           if Date.parse(params[:max_due_date]) < Date.parse(result.target_completion) 
 	    passed_filters = false
 	    Rails.logger.info "Result had later completion of #{result.target_completion} as compared to #{params[:max_due_date]}"
