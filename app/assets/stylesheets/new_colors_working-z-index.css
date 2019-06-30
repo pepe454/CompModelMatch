@@ -33,24 +33,14 @@ h1 {
 /*  opacity: 80%;  */    
 }
 
-
-
-h4{
-  color: var(--main-titles); 
-}
-
 li {
   /*background-color: var(--secondary-bg-col); */ 
   color: white; 
 }
 
 li:hover {
-  background-color: var(--accent-two); 
+  background-color: var(--accent-one); 
   color: var(--navbar-dark-col); 
-}
-
-h4 {
-  color: white; 
 }
 
 /*
@@ -113,6 +103,7 @@ h4 {
 .dropdown-toggle {
   color: white; 
   background-color: var(--navbar-dark-col);
+   
 }
 
 .nav {

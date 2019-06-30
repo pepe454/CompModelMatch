@@ -5,7 +5,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li role="presentation" class="dropdown-header">Create</li>
+    <li role="presentation" class="dropdown-header" style="color: #FFBA9B; font-weight: 700; text-transofmr: uppercase; background-color: #FFBA9B; color: #111A2B; border-radius: 100px;">Create</li>
     <!--<li role="presentation" class="dropdown-header"><%#= t("menu.yellow_pages") -%></li>
     <li> 
       <a href="<%#= new_project_path %>">
@@ -90,7 +90,7 @@
         <%# if can_create_organisms? %>
         <li><%= link_to "Organism", new_organism_path %></li>
         <%# end %>
-        <li role="presentation" class="dropdown-header"><span style="color:red">You cannot add assets or other items until you are a member of a <%= t('project') %>.</span></li>
+        <li role="presentation" class="dropdown-header"><span style="color:#FFBA9B">You cannot add assets or other items until you are a member of a <%= t('project') %>.</span></li>
     <% end %>
   </ul>
 </li>

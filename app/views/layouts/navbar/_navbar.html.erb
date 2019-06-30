@@ -19,27 +19,24 @@
 
       <ul class="nav navbar-nav">
 
-<!-- DB commented out to help reorganize and simplify the navbar  -->
         <%= render :partial => "layouts/navbar/browse_menu" %>   		
 
         <% if logged_in_and_registered? %>
-          <li> <a style="padding-right:0px; margin-right:-5px;" href="/projects/new"><span>Create Project</span></a> </li>
+          <li> <a style="padding-right:0px; margin-right:0px;background-color: #111A2B; color: #FFBA9B; font-size: 110%; text-transform: uppercase; font-weight: 800;" href="/projects/new"><span>Create Project</span></a> </li>
           <%= render :partial => "layouts/navbar/create_menu" %>
-<!-- DB moved the Create oab to the right of the Create Projec menu -->
 
 	<% end %>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
 <!-- DB added this in to push Help to the far right to reorganize and simplify navbar -->
-<!-- End of new addition --> 
 
         <%= render :partial => 'layouts/navbar/search_bar' if Seek::Config.solr_enabled %>
         <% if logged_in_and_registered? %>
             <%= render :partial => "layouts/navbar/user_menu" %>
         <% else %>
-            <li><%= link_to 'Register', signup_path %></li>
-            <li><%= link_to 'Log in', login_path(:return_to => request.original_fullpath) %></li>
+            <li style="color: white;"><%= link_to 'Register', signup_path %></li>
+            <li style="color: white;"><%= link_to 'Log in', login_path(:return_to => request.original_fullpath) %></li>
         <% end %>
         <%= render :partial => "layouts/navbar/help_menu" if Seek::Config.documentation_enabled %> 	
       </ul>

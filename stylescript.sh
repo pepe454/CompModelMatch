@@ -1,10 +1,10 @@
 #!/bin/bash
-is="s"
-containerName="seekcolors"
-fileName="new_colors.css"
-#read -p 'Do you wish to copy an image or a stylesheet?(i/s): ' is
-#read -p 'Container that is running: ' containerName
-#read -p 'Filename you wish to copy: ' fileName
+#is="s"
+#containerName="seekprod"
+#fileName="new_colors.css"
+read -p 'Do you wish to copy an image or a stylesheet?(i/s): ' is
+read -p 'Container that is running: ' containerName
+read -p 'Filename you wish to copy: ' fileName
 
 
 recompile_and_commit() {

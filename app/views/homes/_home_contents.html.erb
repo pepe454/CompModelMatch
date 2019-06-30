@@ -8,7 +8,7 @@
 <%= image('splash2-wide', {width: "100%", class: "rounded"} ) -%>
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-9">
     <%= render :partial=>"home_description_box" -%>
 
     <% if Seek::Config.front_page_buttons_enabled %>
@@ -20,6 +20,7 @@
     <% else %>
         <%= render :partial=>"home_activity_notifications" -%>
     <% end %>
+  </div> 
 
   <div class="col-md-3">
 	<%= render :partial=>"gadgets/announcements_gadget" if show_announcements? %>
@@ -33,7 +34,7 @@
 			<% end -%>
 		</div>
 	<% end %>
-</div>
+  </div>
 </div>
 
 <!-- 
@@ -52,3 +53,4 @@
     <#% end %>
   </div>
 </div>
+--> 
