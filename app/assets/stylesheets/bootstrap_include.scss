@@ -52,9 +52,9 @@
   margin: 0;
 }
 
-.dropdown-menu > li > span {
+.dropdown-menu > li > a {
   clear: both;
-  color: $dropdown-link-disabled-color;
+  color: #eee;
   display: block;
   font-weight: normal;
   line-height: 1.42857;

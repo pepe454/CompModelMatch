@@ -70,7 +70,7 @@ h4 {
 }
 
 .form-control{ /* this references the search bar */ 
-  background-color: var(--secondary-bg-col);
+  background-color: #737e92;
   color: white;
   border-radius: 0px;
   border-bottom-left: 100px; 
@@ -158,8 +158,9 @@ h4 {
 }
 
 .panel-default .panel-body input{
-  color: black;
+  color: white;
   border-radius: 0px; 
+  font-weight: bold;
 }
 
 .panel-default .panel-heading {
