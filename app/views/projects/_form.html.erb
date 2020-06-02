@@ -22,7 +22,7 @@
   <%= f.date_field :target_completion, :class=>"form-control" -%>
 </div>
 
-<div class="form-group">
+<div class="form-group", style="color:grey">
   <%= f.label "Project Status" -%>
   <%= f.select :project_status, options_for_select(Seek::Util.project_statuses), {:include_blank => true} -%>
 </div>
