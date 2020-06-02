@@ -209,7 +209,7 @@ h4 {
 
 .alert-info{
   background-color: var(--accent-one);
-  color: var(--accent-two);
+  color:#a41f1f
   border: none;
   border-radius: 10px; 
 }
