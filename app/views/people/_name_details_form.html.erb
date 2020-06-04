@@ -13,9 +13,10 @@
   </div>
   <div class="col-sm-6">
     <div class="form-group">
+     <div class="pop-over" data-toggle="popover" title="By providing ORCID iD you grant access to http://orcid.org and all the public information about you available on this site." data-content="Some content inside the popover">
       <%= label_tag :orcid, 'ORCID', class: f.object.needs_orcid? ? 'required' : '' -%>
       <%= image(:orcid_id) %>
-      <%= help_icon('<b>ORCID</b> is an open, non-profit, community-based effort to provide a registry of unique researcher identifiers and a transparent method of linking research activities and outputs to these identifiers.<b>An ORCID identifier looks like http://orcid.org/XXXX-XXXX-XXXX-XXXX</b>To find out more and get your ORCID ID please visit http://orcid.org') -%>
+     </div>
       <%= f.text_field :orcid, :class => 'form-control' %>
     </div>
   </div>
