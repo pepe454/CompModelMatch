@@ -35,6 +35,7 @@ $(document).ready(function(){
 	<% if false %>
           <li><%= link_to 'Edit profile', edit_person_path(current_person) -%></li>
 	<% end %>
+        <li><%= link_to 'Logout', logout_path, data: { confirm: 'Are you sure you wish to logout?' } -%></li>
         <li><%= link_to 'My items', items_person_path(current_person) -%></li>
         <% unless current_person.projects.empty? %>
             <!-- <li class="dropdown" style="padding:3px 0px; color:#333333; font-size:14px; margin-top:0px;">
@@ -44,9 +45,9 @@ $(document).ready(function(){
               </a> -->
               <!-- <ul class="dropdown-menu" style="padding:0 0; width:100%; border:none; margin:0;" role="menu"> -->
                 <!--<li role="presentation" class="dropdown-header visible-md">My Projects</li>-->
-                <li style="margin-left:20px; color:#333333">My Projects </li>
+                <li style="margin-left:20px; color:#ffffff">My Projects </li>
                 <% current_person.projects.each do |project| %>
-                  <li class="project-item" style = "margin-left:20px; color:#333333; font-size:11.5px;">    
+                  <li class="project-item" style = "margin-left:20px; color:#ffffff; font-size:11.5px;">    
                     <a href="<%= project_path(project) %>">
 		      <div style="display:inline-block;">
                         <span style="float:left; margin-right:3px;">
@@ -89,7 +90,7 @@ $(document).ready(function(){
         <li><%= link_to 'Change password', edit_user_path(current_user) -%></li>
 
         <li><%= link_to 'Provide feedback', feedback_home_path -%></li>
-        <li><%= link_to 'Logout', logout_path, data: { confirm: 'Are you sure you wish to logout?' } -%></li>
+        
       </ul>
     </li>
 <% end %>
