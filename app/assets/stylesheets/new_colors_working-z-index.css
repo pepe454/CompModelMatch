@@ -192,7 +192,7 @@ li:hover {
 
 .alert-success{
   background-color: var(--accent-one); 
-  color: var(--accent-two); /* dark yellow */ 
+  color: red; /* red */ 
   border: none; 
   border-radius: 10px; 
 }

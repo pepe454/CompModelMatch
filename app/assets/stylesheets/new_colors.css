@@ -202,7 +202,7 @@ h4 {
 
 .alert-success{
   background-color: var(--accent-one); 
-  color: var(--accent-two); /* dark yellow */ 
+  color: red; /* dark yellow */ 
   border: none; 
   border-radius: 10px; 
 }
